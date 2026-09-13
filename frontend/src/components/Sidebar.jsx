@@ -1,6 +1,6 @@
-import { Link, useLocation } from "react-router";
-import useAuthUser from "../hooks/useAuthUser";
-import { BellIcon, HomeIcon, ShipWheelIcon, UsersIcon } from "lucide-react";
+import { Link, useLocation } from 'react-router';
+import useAuthUser from '../hooks/useAuthUser';
+import { BellIcon, HomeIcon, ShipWheelIcon, UsersIcon } from 'lucide-react';
 
 const Sidebar = () => {
   const { authUser } = useAuthUser();
@@ -22,18 +22,17 @@ const Sidebar = () => {
         <Link
           to="/"
           className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
-            currentPath === "/" ? "btn-active" : ""
+            currentPath === '/' ? 'btn-active' : ''
           }`}
         >
           <HomeIcon className="size-5 text-base-content opacity-70" />
           <span>Home</span>
         </Link>
 
-
         <Link
           to="/notifications"
           className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
-            currentPath === "/notifications" ? "btn-active" : ""
+            currentPath === '/notifications' ? 'btn-active' : ''
           }`}
         >
           <BellIcon className="size-5 text-base-content opacity-70" />
@@ -46,7 +45,14 @@ const Sidebar = () => {
         <div className="flex items-center gap-3">
           <div className="avatar">
             <div className="w-10 rounded-full">
-              <img src={authUser?.profilePic} alt="User Avatar" />
+              <img
+                src={authUser?.profilePic}
+                alt="User Avatar"
+                onError={(event) => {
+                  event.currentTarget.onerror = null;
+                  event.currentTarget.src = `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(authUser?.fullName || 'ChilStream')}`;
+                }}
+              />
             </div>
           </div>
           <div className="flex-1">
